@@ -32,7 +32,7 @@ public final class YamlParser {
      * @throws YamlParseException if the specified text is not valid YAML
      * @since 1.0.0
      */
-    public static YamlElement parseString(String yaml) throws YamlSyntaxException {
+    public static YamlElement parseString(final String yaml) throws YamlSyntaxException {
         return parseReader(new StringReader(yaml));
     }
 
@@ -41,7 +41,7 @@ public final class YamlParser {
      * An exception is thrown if the YAML string has multiple top-level YAML elements,
      * or if there is trailing data.
      *
-     * <p>The YAML string is parsed in {@linkplain Yaml#loadAs(Reader, Class)}.
+     * <p>The YAML data is parsed in {@linkplain Yaml#loadAs(Reader, Class)}.
      *
      * @param reader YAML text
      * @return a parse tree of {@link YamlElement}s corresponding to the specified YAML
@@ -49,29 +49,29 @@ public final class YamlParser {
      *                            text is not valid YAML
      * @since 1.0.0
      */
-    public static YamlElement parseReader(Reader reader) throws YamlIOException, YamlSyntaxException {
+    public static YamlElement parseReader(final Reader reader) throws YamlIOException, YamlSyntaxException {
         try {
-            YamlElement element = parseObject(yaml.loadAs(reader, Object.class));
+            final YamlElement element = parseObject(yaml.loadAs(reader, Object.class));
 
             if (element.isYamlNull()) {
                 throw new YamlSyntaxException("Did not consume the entire document.");
             }
             return element;
-        } catch (StackOverflowError | OutOfMemoryError e) {
+        } catch (final StackOverflowError | OutOfMemoryError e) {
             throw new YamlParseException("Failed parsing YAML source: " + reader + " to Yaml", e);
-        } catch (MalformedYamlException | NumberFormatException e) {
+        } catch (final MalformedYamlException | NumberFormatException e) {
             throw new YamlSyntaxException(e);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new YamlIOException(e);
         }
     }
 
-    private static YamlElement parseObject(Object obj) throws MalformedYamlException, IOException {
+    private static YamlElement parseObject(final Object obj) throws MalformedYamlException, IOException {
         if (obj == null) {
             return YamlNull.INSTANCE;
         } else if (obj instanceof Map) {
-            YamlObject yamlObject = new YamlObject();
-            for (Map.Entry<?, ?> entry : ((Map<?, ?>) obj).entrySet()) {
+            final YamlObject yamlObject = new YamlObject();
+            for (final Map.Entry<?, ?> entry : ((Map<?, ?>) obj).entrySet()) {
                 yamlObject.add((String) entry.getKey(), parseObject(entry.getValue()));
             }
             return yamlObject;
