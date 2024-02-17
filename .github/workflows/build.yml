@@ -44,10 +44,17 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          java-version: 21
+          java-version: 8
+          distribution: 'adopt'
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Build and Test
         run: ./gradlew build test
 
       - name: Upload artifact
+        env:
+          GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
+          GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
         run: ./gradlew publishMavenPublicationToGprRepository
