@@ -55,7 +55,7 @@ jobs:
 
       - name: Upload artifact
         env:
-          GR: $GITHUB_REPOSITORY
+          GR: ${ GITHUB_REPOSITORY }
           GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
           GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
         run: ./gradlew publishMavenPublicationToGprRepository
