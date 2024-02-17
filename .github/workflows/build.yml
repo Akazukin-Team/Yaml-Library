@@ -1,0 +1,53 @@
+name: Java CI with Gradle
+
+
+on:
+  push:
+    branches:
+      - "dev-*"
+      - "main"
+
+    paths:
+      - '**.gradle'
+      - '**.properties'
+      - '**/src/**'
+      - '.github/workflows/**'
+
+  pull_request:
+    branches:
+      - "main"
+
+    paths:
+      - '**.gradle'
+      - '**.properties'
+      - '**/src/**'
+      - '.github/workflows/**'
+
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.gradle
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 21
+
+      - name: Build and Test
+        run: ./gradlew build test
+
+      - name: Upload artifact
+        run: ./gradlew publishMavenPublicationToGprRepository
