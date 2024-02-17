@@ -43,6 +43,17 @@ dependencies {
 }
 
 publishing {
+    repositories {
+        maven {
+            name = "gpr"
+            url = uri("https://maven.pkg.github.com/akazukin-team/akazukin-bot")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GPR_USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("GPR_TOKEN")
+            }
+        }
+    }
+
     publications {
         maven(MavenPublication) {
             versionMapping {
@@ -58,10 +69,6 @@ publishing {
                 name = 'Yaml Library'
                 description = 'A library for to use the SnakeYaml for easily coding'
                 url = 'http://www.akazukin.net/yaml-lib'
-                /*properties = [
-                        myProp: "value",
-                        "prop.with.dots": "anotherValue"
-                ]*/
                 /*licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
