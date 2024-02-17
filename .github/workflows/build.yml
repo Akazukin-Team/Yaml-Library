@@ -54,4 +54,7 @@ jobs:
         run: ./gradlew build test
 
       - name: Upload artifact
+        env:
+          GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
+          GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
         run: ./gradlew publishMavenPublicationToGprRepository
