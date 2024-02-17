@@ -54,4 +54,5 @@ jobs:
         run: ./gradlew build test
 
       - name: Upload artifact
+        env:
         run: ./gradlew publishMavenPublicationToGprRepository
