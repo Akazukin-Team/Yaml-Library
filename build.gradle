@@ -1,12 +1,9 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
     }
     dependencies {
-        classpath('com.guardsquare:proguard-gradle:7.4.0-beta02')
+        classpath('com.guardsquare:proguard-gradle:7.4.2')
     }
 }
 
@@ -86,3 +83,5 @@ publishing {
         }
     }
 }
+
+println System.getenv("GHA_EVENT") == "release" ? project.version : System.getenv("GH_COMMIT_HASH")

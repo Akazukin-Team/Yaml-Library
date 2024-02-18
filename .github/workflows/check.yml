@@ -29,7 +29,7 @@ jobs:
 
     env:
       GHA_EVENT: ${{ github.event_name }}
-      GH_COMMIT_HASH: ${{ github.ref }}
+      GH_COMMIT_HASH: ${{ github.sha }}
 
       GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
       GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
