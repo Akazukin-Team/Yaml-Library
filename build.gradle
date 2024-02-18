@@ -36,7 +36,7 @@ configurations {
 }
 
 dependencies {
-    api ('org.yaml:snakeyaml:2.2')
+    api('org.yaml:snakeyaml:2.2')
 
     compileOnly('org.projectlombok:lombok:1.18.30')
     annotationProcessor('org.projectlombok:lombok:1.18.30')
