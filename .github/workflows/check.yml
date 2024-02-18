@@ -1,8 +1,18 @@
-name: Build application and publish with Java CI and Gradle
+name: Test application with Java CI and Gradle
 
 
 on:
   push:
+    branches:
+      - "dev-*"
+
+    paths:
+      - '**.gradle'
+      - '**.properties'
+      - '**/src/**'
+      - '.github/workflows/**'
+
+  pull_request:
     branches:
       - "main"
 
@@ -12,16 +22,10 @@ on:
       - '**/src/**'
       - '.github/workflows/**'
 
-  release:
-
 
 jobs:
   build:
     runs-on: ubuntu-20.04
-
-    permissions:
-      contents: read
-      deployments: write
 
     env:
       GHA_EVENT: ${{ github.event_name }}
@@ -29,6 +33,10 @@ jobs:
 
       GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
       GPR_TOKEN: ${{ secrets.GPR_TOKEN }}
+
+    permissions:
+      contents: read
+      deployments: write
 
     steps:
       - name: Checkout
@@ -56,6 +64,3 @@ jobs:
         with:
           name: artifact
           path: app/build/libs/
-
-      - name: Upload artifacts to GPR
-        run: ./gradlew publishMavenPublicationToGprRepository

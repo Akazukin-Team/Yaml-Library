@@ -72,7 +72,7 @@ public final class YamlParser {
         } else if (obj instanceof Map) {
             final YamlObject yamlObject = new YamlObject();
             for (final Map.Entry<?, ?> entry : ((Map<?, ?>) obj).entrySet()) {
-                yamlObject.add((String) entry.getKey(), parseObject(entry.getValue()));
+                yamlObject.add(String.valueOf(entry.getKey()), parseObject(entry.getValue()));
             }
             return yamlObject;
         } else if (obj instanceof Number) {
