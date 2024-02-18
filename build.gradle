@@ -80,7 +80,7 @@ publishing {
             }
 
             groupId = project.group
-            artifactId = 'yaml'
+            artifactId = project.artifact
             version = System.getenv("GHA_EVENT") == "release" ? project.version : System.getenv("GH_COMMIT_HASH")
             from components.java
         }
