@@ -17,10 +17,6 @@ plugins {
 }
 
 repositories {
-    maven {
-        url 'https://jitpack.io'
-    }
-    mavenLocal()
     mavenCentral()
 }
 
@@ -29,8 +25,6 @@ compileJava.options.encoding = "UTF-8"
 configurations {
     include
     implementation.extendsFrom(include)
-    runtimeOnly.extendsFrom(include)
-    runtimeOnly.canBeResolved = true
     implementation.canBeResolved = true
 }
 
