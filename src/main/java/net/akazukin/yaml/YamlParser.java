@@ -33,7 +33,9 @@ public final class YamlParser {
      * @since 1.0.0
      */
     public static YamlElement parseString(final String yaml) throws YamlSyntaxException {
-        return parseReader(new StringReader(yaml));
+        try (final StringReader reader = new StringReader(yaml)) {
+            return parseReader(reader);
+        }
     }
 
     /**
@@ -66,7 +68,7 @@ public final class YamlParser {
         }
     }
 
-    private static YamlElement parseObject(final Object obj) throws MalformedYamlException, IOException {
+    private static YamlElement parseObject(final Object obj) throws IOException {
         if (obj == null) {
             return YamlNull.INSTANCE;
         } else if (obj instanceof Map) {
