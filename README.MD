@@ -1,2 +1,2 @@
 いらなくなったので公開
-@Deprecated
+# @Deprecated
